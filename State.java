@@ -1,7 +1,6 @@
 import java.util.*;
 
-import javax.net.ssl.SNIHostName;
-package DaringDuck;
+package DaringDuck.DaringDuck;
 
 public class State {
     
