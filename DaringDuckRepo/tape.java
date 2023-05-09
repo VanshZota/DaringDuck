@@ -1,5 +1,3 @@
-
-package DaringDuck.DaringDuck;
 import java.util.*;
 public class tape {
     
@@ -26,7 +24,7 @@ public class tape {
         for (int i = 0; i < input.length(); i++) {
             tape.add(input.substring(i, i+1));}}
 
-        
+    
     public void addleft() {
         for (int i = 0; i < tape.size() - 1; i++) {
             tape.set(i + 1, tape.get(i));

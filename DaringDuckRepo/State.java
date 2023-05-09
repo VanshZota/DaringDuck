@@ -1,15 +1,13 @@
-package DaringDuck.DaringDuck;
 import java.util.*;
 
 
 public class State {
     
-    public ArrayList<Transition> trans;
+    public ArrayList<transition> trans;
     public String sname;
     public Boolean isfinalstate;
 
-
-    public stateinfo(ArrayList<Transition> transitions, String namestate, Boolean accept){
+    public State(ArrayList<transition> transitions, String namestate, Boolean accept){
         sname = namestate;
         trans = transitions;
         isfinalstate = accept;
@@ -19,7 +17,7 @@ public class State {
         return sname;
     }
 
-    public ArrayList<Transition> gettrans() {
+    public ArrayList<transition> gettrans() {
         return trans;
     }
 
