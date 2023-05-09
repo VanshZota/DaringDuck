@@ -28,7 +28,7 @@ public class StateMachine {
         State check = new State( t_check,"check", false);
         State halt = new State( t_halt,"halt", true);
         
-        t0.add(new Transition(tape, s0, "0", "0", "R"));
+        t0.add(new Transition(s0, tape, "0", "0", "R"));
         t0.add(new Transition(tape, s0, "1", "1", "R"));
         t0.add(new Transition(tape, s0, "S", "S", "R"));
         t0.add(new Transition(tape, s0, "E", "E", "R"));

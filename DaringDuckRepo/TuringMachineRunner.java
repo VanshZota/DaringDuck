@@ -2,7 +2,7 @@ public class TuringMachineRunner {
     
     // public static StateMachine machine;
     public static State finalState;
-    public static tape tape = new Tape.asList("S000000000000000E"); // Final: 15 0's
+    public static tape tape = new ape("S000000000000000E"); // Final: 15 0's
 
     public static void main(String[] args) {
         StateMachine machine = new StateMachine(tape);
