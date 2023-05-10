@@ -1,166 +1,171 @@
 import java.util.*;
 
 public class StateMachine {
-    // "ε" = epsilon
-    // "N" = null
     
     public State currentstate;
     public State finstate;
 
 
+
     public ArrayList<State> liststates = new ArrayList<>();
     public Tape tape;
     
+
+
     public StateMachine(Tape input) {
         tape = input;
 
-        /* ArrayList<transition> trans1 = new ArrayList<>();
+
+
+        //initialize all of the transitions
+        ArrayList<transition> trans1 = new ArrayList<>();
         ArrayList<transition> trans2 = new ArrayList<>();
         ArrayList<transition> trans3 = new ArrayList<>();
         ArrayList<transition> trans4 = new ArrayList<>();
         ArrayList<transition> trans5 = new ArrayList<>();
-        ArrayList<transition> checktrans = new ArrayList<>();
-        ArrayList<transition> accepttrans = new ArrayList<>();
+        ArrayList<transition> trans6 = new ArrayList<>();
+        ArrayList<transition> trans7 = new ArrayList<>();
         
+
+
+        //create all of the states (seen in picture)
         State s0 = new State(trans1,"s0",false);
         State s1 = new State(trans2,"s1",false);
         State s2 = new State(trans3,"s2",false);
         State s3 = new State(trans4,"s3",false);
         State s4 = new State(trans5,"s4",false);
-        State check = new State( checktrans,"check", false);
-        State halt = new State( accepttrans,"halt", true);
+        State s5 = new State( trans6,"s5", false);
+        State s6 = new State( trans7,"end", true);
         
-        trans1.add(new transition(tape,s0,  "0", "0", "R"));
-        trans1.add(new transition(tape, s0, "1", "1", "R"));
-        trans1.add(new transition(tape, s0, "S", "S", "R"));
-        trans1.add(new transition(tape, s0, "E", "E", "R"));
-        trans1.add(new transition(tape, s1, "N", "1", "L"));
+
+
+        //all of the transitions for s0
+        trans1.add(new transition(tape,s0,  "0", "0", "R"));//s0, 0/0, R
+        trans1.add(new transition(tape, s0, "1", "1", "R"));//s0, 1/1, R
+        trans1.add(new transition(tape, s0, "S", "S", "R"));//s0, start/start, R
+        trans1.add(new transition(tape, s0, "E", "E", "R"));//s0, end/, R
+        trans1.add(new transition(tape, s1, "N", "1", "L"));//s1, null/1, L
+
+
+
         liststates.add(s0);
         currentstate = s0;
 
-        trans2.add(new transition(tape, s1, "0", "0", "L"));
-        trans2.add(new transition(tape, s1, "1", "1", "L"));
-        trans2.add(new transition(tape, s1, "S", "S", "L"));
-        trans2.add(new transition(tape, s2, "E", "E", "L"));  
+
+
+        //all of the transitions for s1
+        trans2.add(new transition(tape, s1, "0", "0", "L")); //(s1), read 0/write 0, (s1)
+        trans2.add(new transition(tape, s1, "1", "1", "L")); //(s1), read 1/write 1, (s1)
+        trans2.add(new transition(tape, s1, "S", "S", "L")); //(s1), read S/write S, (s1)
+        trans2.add(new transition(tape, s2, "E", "E", "L")); //(s2), read E/write E, (s2)
+
+    
+        
         liststates.add(s1);
 
-        trans3.add(new transition(tape, s0, "0", "1", "R"));
-        trans3.add(new transition(tape, check, "1", "1", "L")); 
+
+
+        //trans3 transitions
+        trans3.add(new transition(tape, s0, "0", "1", "R")); //(s0), read 0/write 1, (s2)
+        trans3.add(new transition(tape, s5, "1", "1", "L")); //(check), read 1/write 1, (check)
         liststates.add(s2);
 
-        checktrans.add(new transition(tape, check, "1", "1", "L"));   
-        checktrans.add(new transition(tape, s3, "0", "0", "R"));
-        checktrans.add(new transition(tape, halt, "S", "S", "R"));
-        liststates.add(check);
-        
-        liststates.add(halt);
-        finstate = halt;
 
-        trans4.add(new transition(tape, s3, "0", "0", "R"));
-        trans4.add(new transition(tape, s3, "1", "1", "R"));
-        trans4.add(new transition(tape, s3, "S", "S", "R"));
-        trans4.add(new transition(tape, s4, "E", "E", "L"));
+
+        //trans6 (last state before accept state) transitions
+        trans6.add(new transition(tape, s5, "1", "1", "L")); //(check), read 1/write 1, (check)
+        trans6.add(new transition(tape, s3, "0", "0", "R")); //(s3), read 0/write 0, (s3)
+        trans6.add(new transition(tape, s6, "S", "S", "R")); //(end), read S/write S, (end)
+        
+
+
+        //add a final state and call it end
+        liststates.add(s6);
+        finstate = s6;
+
+
+
+        //trans 4 transitions (look from the picture and just add what we need)
+        trans4.add(new transition(tape, s3, "0", "0", "R")); //(s3), read 0/write 0, (s3)
+        trans4.add(new transition(tape, s3, "1", "1", "R")); //(s3), read 1/write 1, (s3)
+        trans4.add(new transition(tape, s3, "S", "S", "R")); //(s3), read S/write S, (s3)
+        trans4.add(new transition(tape, s4, "E", "E", "L")); //(s4), read E/write E, (s4)
         liststates.add(s3);
     
-        trans5.add(new transition(tape, s4, "1", "0", "L"));
-        trans5.add(new transition(tape, s0, "0", "1", "R"));
-        liststates.add(s4); */
 
 
-
-
-        ArrayList<State> liststates = new ArrayList<>();
-    ArrayList<transition> trans = new ArrayList<>();
-    ArrayList<transition> checktrans = new ArrayList<>();
-    ArrayList<transition> accepttrans = new ArrayList<>();
-
-    State s0 = new State(trans, "s0", false);
-    State s1 = new State(trans, "s1", false);
-    State s2 = new State(trans, "s2", false);
-    State s3 = new State(trans, "s3", false);
-    State s4 = new State(trans, "s4", false);
-    State check = new State(checktrans, "check", false);
-    State halt = new State(accepttrans, "halt", true);
-
-    liststates.add(s0);
-    liststates.add(s1);
-    liststates.add(s2);
-    liststates.add(s3);
-    liststates.add(s4);
-    liststates.add(check);
-    liststates.add(halt);
-
-    trans.add(new transition(tape, s0, "0", "0", "R"));
-    trans.add(new transition(tape, s0, "1", "1", "R"));
-    trans.add(new transition(tape, s0, "S", "S", "R"));
-    trans.add(new transition(tape, s0, "E", "E", "R"));
-    trans.add(new transition(tape, s1, "N", "1", "L"));
-
-    trans.add(new transition(tape, s1, "0", "0", "L"));
-    trans.add(new transition(tape, s1, "1", "1", "L"));
-    trans.add(new transition(tape, s1, "S", "S", "L"));
-    trans.add(new transition(tape, s2, "E", "E", "L"));
-
-    trans.add(new transition(tape, s0, "0", "1", "R"));
-    trans.add(new transition(tape, check, "1", "1", "L"));
-
-    checktrans.add(new transition(tape, check, "1", "1", "L"));
-    checktrans.add(new transition(tape, s3, "0", "0", "R"));
-    checktrans.add(new transition(tape, halt, "S", "S", "R"));
-
-    trans.add(new transition(tape, s3, "0", "0", "R"));
-    trans.add(new transition(tape, s3, "1", "1", "R"));
-    trans.add(new transition(tape, s3, "S", "S", "R"));
-    trans.add(new transition(tape, s4, "E", "E", "L"));
-
-    trans.add(new transition(tape, s4, "1", "0", "L"));
-    trans.add(new transition(tape, s0, "0", "1", "R"));
-
-    currentstate = s0;
-    finstate = halt;
-
+        //trans5 (i think these are all done)
+        trans5.add(new transition(tape, s4, "1", "0", "L")); //(s4), read 1/write 0, (s0)
+        trans5.add(new transition(tape, s0, "0", "1", "R")); //(s0), read 0/write 1, (s0)
+        liststates.add(s4);
     }
 
-    public State getCurrentState() {
+   
+
+
+    //for moving the head and keeping track of transitions
+    public State getstate() {
         return currentstate;
     }
 
-    public State getHaltState() {
+    public State getaccept() {
         return finstate;
     }
 
+
+
+
+
+
+    //note for aaron: overcommented so you see what I did if you want to change anything we can just delete before we submit
     public void move(State initialState) {
-        ArrayList<String> ta = tape.getTape();
-        int tI = tape.index;
-        if (tI > tape.getTape().size()) {
-            tape.incright();
+
+    // Declare and initialize variables
+    ArrayList<String> temptape = tape.getTape(); // Get the tape from the Turing machine's tape object
+    int tapeindex = tape.index; // Get the current index of the tape head
+
+    // Check if the tape head is at the end of the tape, and move the tape one step to the right if it is
+    if (tapeindex > tape.getTape().size()) {
+        tape.incright();
+    }
+
+    // Get the symbol currently under the tape head
+    String s2 = temptape.get(tapeindex);
+
+    // Loop through all the transitions of the current state to find a match for the current symbol
+    for (int i = 0; i < initialState.gettrans().size(); i++) {
+
+        // Get the current transition
+        ArrayList<transition> ltrans = initialState.gettrans();
+        transition temptrans = ltrans.get(i);
+
+        // Get the symbol that the current transition reads
+        String tempstring = temptrans.getinput();
+
+        // Check if the symbol matches the current symbol under the tape head
+        if (tempstring.equals(s2)) {
         }
-        String s2 = ta.get(tI);
 
-        for (int i = 0; i < initialState.gettrans().size(); i++) {
-            ArrayList<transition> tL = initialState.gettrans();
-            transition t = tL.get(i);
-            String s = t.getReadSymbol();
-            if (s.equals(s2)) {
+        // If the symbol matches, perform the transition
+        if (tempstring.equals(s2)) {
+
+            // Write the symbol that the transition specifies onto the tape
+            tape.write(initialState.gettrans().get(i).getoutput());
+
+            // Set the current state to the state that the transition leads to
+            currentstate = initialState.gettrans().get(i).getnext();
+
+            // Move the tape head left or right based on the direction specified by the transition
+            if (initialState.gettrans().get(i).getdir().equals("L")) {
+                tape.left();
+            }
+            else {
+                tape.right();
             }
 
-            if (s.equals(s2)) {
-                    tape.write(initialState.gettrans().get(i).getWriteSymbol());
-                
-
-                currentstate = initialState.gettrans().get(i).getNextState();
-
-                // Moving the tape
-                if (initialState.gettrans().get(i).getDirection().equals("L")) {
-                    tape.left();
-                }
-                else {
-                    tape.right();
-                    
-                }
-
-                break;
-            }
+            break;
         }
     }
+}
+
 }

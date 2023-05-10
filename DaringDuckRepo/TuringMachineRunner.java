@@ -1,8 +1,5 @@
 public class TuringMachineRunner {
     
-    // public static StateMachine machine;
-    
-
     public static State acceptstate;
     public static Tape tape = new Tape("S000000000000000E");
 
@@ -11,7 +8,7 @@ public class TuringMachineRunner {
         StateMachine mach = new StateMachine(tape);
         tape.toString();
 
-        for (int i = 0; !mach.currentstate.equals(mach.finstate); i++) {
+        for (; !mach.currentstate.equals(mach.finstate);) {
             mach.move(mach.currentstate);
             if (mach.currentstate.equals(mach.finstate)) {
                 break;
@@ -19,26 +16,13 @@ public class TuringMachineRunner {
         }
         
 
-/*         while (!(mach.currentstate.equals(mach.finstate))) {
-    
-            mach.move(mach.currentstate);
-            
-
-
-            if (mach.currentstate.equals(mach.finstate)) {
-                break;
-            }
-        } */
-
-
         
         System.out.println("Done");
         System.out.println(tape.toString());
-        System.out.println();
 
         int onecount = tape.numOnes();
         System.out.println("Ones: " + onecount);
 
-        System.out.printf("Final score: %d", onecount / (7 + 5 + tape.getInput().length()));
+        System.out.printf("Score: %d", onecount/(7 + 5 + tape.getInput().length()));
     }
 }

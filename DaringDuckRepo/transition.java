@@ -11,25 +11,27 @@ public class transition {
         nextstate = next;
         inputatindex = read;
         outputatindex = write;
-        direction = lorr;
+        direction = lorr; //kind of confusing but if you want to change variable name to smth else you can
     }
 
-    public Tape getInputTape() {
+
+    //init transition properties for state machine - might need to change names to make more sense
+    public Tape gettape() {
         return mytape;
     }
 
-    public State getNextState() {
+    public State getnext() {
         return nextstate;
     }
-        public String getReadSymbol() {
+        public String getinput() {
         return inputatindex;
     }
 
-    public String getWriteSymbol() {
+    public String getoutput() {
         return outputatindex;
     }
 
-    public String getDirection() {
+    public String getdir() {
         return direction;
     }
 }
