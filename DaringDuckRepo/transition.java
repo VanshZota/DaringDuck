@@ -1,37 +1,36 @@
 public class transition {
     
-    public tape inputstring;
+    public Tape mytape;
     public State nextstate;
-    public String inputread;
-    public String inputwrite;
+    public String inputatindex;
+    public String outputatindex;
     public String direction;
 
-    public void Transition(tape input, State next, String read, String write, String dirtape) {
-        inputstring = input; //take the input from user
-        nextstate = next; //find the next state that machine transitions to
-        inputread = read; //read the tape
-        inputwrite = write; //overwrite the tape with new output
-        direction = dirtape; //find direction of the tape
+    public transition(Tape input, State next, String read, String write, String lorr /*left or right*/) {
+        mytape = input;
+        nextstate = next;
+        inputatindex = read;
+        outputatindex = write;
+        direction = lorr;
     }
 
-    public tape getinputstring() {
-        return inputstring;
+    public Tape getInputTape() {
+        return mytape;
     }
 
     public State getNextState() {
         return nextstate;
     }
-
-    public String getReadSymbol() {
-        return inputread;
+        public String getReadSymbol() {
+        return inputatindex;
     }
 
     public String getWriteSymbol() {
-        return direction;
+        return outputatindex;
     }
 
     public String getDirection() {
         return direction;
     }
-
 }
+

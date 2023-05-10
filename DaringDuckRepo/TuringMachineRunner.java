@@ -1,31 +1,44 @@
 public class TuringMachineRunner {
     
     // public static StateMachine machine;
-    public static State finalState;
-    public static tape tape = new ape("S000000000000000E"); // Final: 15 0's
+    
+
+    public static State acceptstate;
+    public static Tape tape = new Tape("S000000000000000E");
+
 
     public static void main(String[] args) {
-        StateMachine machine = new StateMachine(tape);
+        StateMachine mach = new StateMachine(tape);
         tape.toString();
-        
-        while (!(machine.currState.equals(machine.haltState))) {
-            //System.out.println("\n" + machine.currState.getName());
-            //System.out.println(tape.toString());
-            
-            machine.move(machine.currState);
-            
-            if (machine.currState.equals(machine.haltState)) {
+
+        for (int i = 0; !mach.currentstate.equals(mach.finstate); i++) {
+            mach.move(mach.currentstate);
+            if (mach.currentstate.equals(mach.finstate)) {
                 break;
             }
         }
+        
 
-        System.out.println("Finished");
+/*         while (!(mach.currentstate.equals(mach.finstate))) {
+    
+            mach.move(mach.currentstate);
+            
+
+
+            if (mach.currentstate.equals(mach.finstate)) {
+                break;
+            }
+        } */
+
+
+        
+        System.out.println("Done");
         System.out.println(tape.toString());
         System.out.println();
 
-        int oneCount = tape.numones();
-        System.out.println("Final count of ones: " + oneCount);
+        int onecount = tape.numOnes();
+        System.out.println("Ones: " + onecount);
 
-        System.out.printf("Final score: %d", oneCount / (7 + 5 + tape.getInput().length()));
+        System.out.printf("Final score: %d", onecount / (7 + 5 + tape.getInput().length()));
     }
 }
